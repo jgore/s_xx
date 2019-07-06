@@ -48,7 +48,7 @@ const user = (sequelize, DataTypes) => {
     },
     {
       hooks: {
-        beforeCreate(user, options) {
+        beforeValidate(user, options) {
           user.hashPassword();
           user.createUsername();
         }
@@ -69,6 +69,7 @@ const user = (sequelize, DataTypes) => {
     this.username = (this.first_name + this.last_name)
       .toLowerCase()
       .replace(/ /g, "");
+    console.log(this.username);
   };
 
   User.changeEnable = ({ email = "" }) => {
@@ -129,7 +130,7 @@ const user = (sequelize, DataTypes) => {
 
     return user;
   };
-  
+
   return User;
 };
 

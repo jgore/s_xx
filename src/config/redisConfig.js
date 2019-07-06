@@ -32,12 +32,10 @@ export const getFromRedis = (key, callback) => {
 
 export const checkIsNotExpire = (key, callback) => {
   client.get(key, (err, reply) => {
-    console.log(reply);
     if (err || !reply) {
       callback({ error: "NOT EXIST" });
     } else {
       client.ttl(key, (err, time) => {
-        console.log(time);
         if (err) {
           callback({ error: "NOT EXPIRE" });
         } else {
