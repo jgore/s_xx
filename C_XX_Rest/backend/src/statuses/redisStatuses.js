@@ -1,0 +1,5 @@
+export const FOUND_KEY = "FOUND_KEY"
+export const NOT_FOUND_KEY = "NOT_FOUND_KEY"
+export const REDIS_INTERNAL_ERROR = "REDIS_INTERNAL_ERROR"
+
+export const REDIS_DELETE_COMPANY_STACK = 2

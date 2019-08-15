@@ -1,0 +1,46 @@
+{
+  "name": "transport-tech-service-backend",
+  "version": "1.0.0",
+  "description": "Jest to wersja backendowa aplikacji mającej służyć do obliczania kosztów spedycji",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=develop nodemon --exec babel-node ./src/index.js",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --require @babel/register --recursive './test/*.spec.js'",
+    "debug": "node --inspect-brk ./dist/index.js",
+    "build": "babel src --out-dir ./dist --source-maps",
+    "test-watch": "NODE_ENV=test nodemon --watch test --exec './node_modules/.bin/mocha --require @babel/register --recursive './test/*.spec.js''"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript",
+    "mongodb"
+  ],
+  "author": "Teach Tech Service Marcin Warzybok",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "email-templates": "^6.0.0",
+    "express": "^4.17.1",
+    "googleapis": "^41.0.1",
+    "mongoose": "^5.6.4",
+    "nodemailer": "^6.3.0",
+    "nodemailer-express-handlebars": "^3.1.0",
+    "pug": "^2.0.4",
+    "redis": "^2.8.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/node": "^7.5.0",
+    "@babel/preset-env": "^7.5.4",
+    "@babel/register": "^7.4.4",
+    "babel-polyfill": "^6.26.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.1"
+  }
+}
