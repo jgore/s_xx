@@ -1,9 +1,10 @@
 import express from "express";
-import {getDrug} from '../controllers/products'
+import {getDrug, getDrugs} from '../controllers/products'
 
 const router = express.Router();
 
 export default () => {
-  router.post("/get-drug", getDrug)
+  router.post("/get-drug/:serial", getDrug)
+  router.post("/get-drugs", getDrugs)
   return router
 };

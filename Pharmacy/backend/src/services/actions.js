@@ -10,16 +10,25 @@ export async function createHistory(options) {
   });
 }
 export async function verifyDrug(data) {
-  const response = await Axios({
+  return Axios({
     url: `${A_XX_URL}/check`,
     method: "POST",
     data
   });
-  console.log(response);
-  return true;
 }
-export async function getDrug(serial_number) {
+export async function getDrug(serial, data) {
   return Axios({
-    url: `${C_XX_URL}/get-drug/${serial_number}`
+    url: `${C_XX_URL}/products/get-drug/${serial}`,
+    method: "POST",
+    data
   });
 }
+
+export async function getDrugs(serials) {
+  return Axios({
+    url: `${C_XX_URL}/products/get-drugs`,
+    method: "POST",
+    data: {serials}
+  })
+}
+ 

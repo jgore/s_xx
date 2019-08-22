@@ -11,7 +11,7 @@ app.post("/api/check", (req, res) => {
   const { code } = req.body;
   setTimeout(() => {
     res.send({ isValid: true, code });
-  }, 80);
+  }, 100);
 });
 
 app.listen(PORT, () => {

@@ -16,13 +16,7 @@ const ProductSchema = new mongoose.Schema({
   form: {
     type: String,
     required: true
-  },
-  codes: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "serial"
-    }
-  ]
+  }
 });
 
 export default mongoose.model("product", ProductSchema);

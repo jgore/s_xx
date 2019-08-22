@@ -1,9 +1,14 @@
 import mongoose, { Schema } from "mongoose";
 
 const SerialSchema = new mongoose.Schema({
-  code: {
+  serial: {
     type: String,
     unique: true,
+    required: true
+  },
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "product",
     required: true
   }
 });
