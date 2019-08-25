@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { loadData } from "../services/loadData";
 import Product from "../models/products";
-import Serial from "../models/serial";
 import uuid from "uuid";
 import fs from "fs";
 import path from "path";
@@ -15,41 +14,27 @@ export default async URI => {
   });
 
   await Product.deleteMany({});
-  await Serial.deleteMany({});
   const data = await loadData([
-    "mockData/products.json",
-    "mockData/serial.json"
+    "mockData/products.json"
   ]);
 
-  const products = await Product.insertMany(data[0]);
-  const unSavedSerials = data[1];
-  for (let i = 0; i < products.length; i++) {
-    for (let k = 0; k < unSavedSerials.length; k++) {
-      if (unSavedSerials[k].name === products[i].name) {
-        unSavedSerials[k].product = products[i]._id;
-      }
-    }
-  }
-
-  const generatedSerials = [];
+  const products = data[0];
+  
   for (let i = 0; i < 10000; i++) {
-    generatedSerials.push({
-      serial: uuid(),
-      product: products[0]._id
-    });
+    products[0].serials.push(uuid())
+  }
+  for (let i = 0; i < 10000; i++) {
+    products[1].serials.push(uuid())
   }
 
-  const serials = await Serial.insertMany([
-    ...unSavedSerials,
-    ...generatedSerials
-  ]);
+  for (let i = 0; i < 20; i++) {
+    products[2].serials.push(uuid())
+  }
 
-  const onlyIDS = serials.map((value) => {
-    return value.serial
-  })
-
+  const serials = products[0].serials.concat(products[1].serials,products[2].serials)
+  Product.insertMany(products)
   fs.writeFileSync(
     path.join(__dirname, "./query.json"),
-    JSON.stringify(onlyIDS, null, 3)
+    JSON.stringify(serials, null, 3)
   );
 };

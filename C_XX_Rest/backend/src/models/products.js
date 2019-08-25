@@ -16,6 +16,10 @@ const ProductSchema = new mongoose.Schema({
   form: {
     type: String,
     required: true
+  },
+  serials: {
+    type: Array,
+    default: []
   }
 });
 

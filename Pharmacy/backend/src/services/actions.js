@@ -16,19 +16,12 @@ export async function verifyDrug(data) {
     data
   });
 }
-export async function getDrug(serial, data) {
+export async function getDrugs(data) {
+  console.log(data)
   return Axios({
-    url: `${C_XX_URL}/products/get-drug/${serial}`,
+    url: `${C_XX_URL}/products/verfiy`,
     method: "POST",
     data
   });
-}
-
-export async function getDrugs(serials) {
-  return Axios({
-    url: `${C_XX_URL}/products/get-drugs`,
-    method: "POST",
-    data: {serials}
-  })
 }
  

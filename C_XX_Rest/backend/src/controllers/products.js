@@ -1,52 +1,57 @@
 import Product from "../models/products";
-import Serial from "../models/serial";
 
-export async function getDrug(req, res) {
-  const { serial } = req.params;
-  console.log(serial);
-  if (!serial) {
+export async function verfiyDrug(req, res) {
+  const { serials } = req.body;
+  console.log(serials);
+  if (!Array.isArray(serials)) {
     return res.status(400).send({});
   }
-  const serialProduct = await Serial.findOne({ serial });
-  if (!serialProduct) {
-    return res.status(404).send({});
-  }
-  const product = await Product.findById(serialProduct.product);
-  console.log(product);
-  if (!product) {
-    return res.status(404).send({});
-  }
 
-  res.send(product);
-}
-
-export async function getDrugs(req, res) {
-  const { serials } = req.body
-
-  if(!Array.isArray(serials)) {
-    return res.status(400).send({})
-  }
-
-  const serialsProduct = await Serial.find({
-    serial: {
-      $in: [
-        ...serials  
-      ]
+  const products = await Product.aggregate([
+    {
+      $limit: 1
+    },
+    {
+      $project: {
+        _id: 0,
+        serialsToSearch: serials
+      }
+    },
+    {
+      $unwind: "$serialsToSearch"
+    },
+    {
+      $lookup: {
+        from: "products", //very important, name of collection where we are looking for
+        let: {
+          serial: "$serialsToSearch"
+        },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $in: ["$$serial", "$serials"]
+              }
+            }
+          }
+        ],
+        as: "searialsLookup"
+      }
+    },
+    {
+      $unwind: {
+        path: "$searialsLookup",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $project: {
+        serial: "$serialsToSearch",
+        doc: {
+          $ifNull: ["$searialsLookup", null]
+        }
+      }
     }
-  })
-
-  const serialNumbers = serialsProduct.map((value) => {
-    return value.product
-  })
-  const products = await Product.find({
-    _id: {
-      $in: [
-        ...serialNumbers
-      ]
-    }
-  })
-
-  res.send(products)
-
-
+  ]);
+  res.send({ products });
 }
