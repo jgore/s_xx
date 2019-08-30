@@ -2,7 +2,6 @@ import Product from "../models/products";
 
 export async function verfiyDrug(req, res) {
   const { serials } = req.body;
-  console.log(serials);
   if (!Array.isArray(serials)) {
     return res.status(400).send({});
   }
