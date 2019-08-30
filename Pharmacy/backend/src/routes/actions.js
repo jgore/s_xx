@@ -14,7 +14,7 @@ export default () => {
   router.post("/post-action", postAction);
   router.post("/verify", verifyAction);
   router.post("/dispense", dispenseAction);
-  router.delete("/destroy", destroyAction);
+  router.post("/destroy", destroyAction);
   router.post("/sample", sampleAction);
   router.post("/undo", undoAction);
   return router;

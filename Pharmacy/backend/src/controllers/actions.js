@@ -7,8 +7,6 @@ import { createHistory, verifyDrug, getDrugs } from "../services/actions";
 const C_XX_URL = process.env.C_XX_URL,
   A_XX_URL = process.env.A_XX_URL;
 
-console.log(A_XX_URL, C_XX_URL);
-
 export async function postAction(req, res) {}
 
 export async function verifyAction(req, res) {
@@ -83,7 +81,7 @@ export async function dispenseAction(req, res) {
     action,
     data: updateStats
   });
-  console.log(updateStats)
+
   res.send({});
 }
 
@@ -92,7 +90,6 @@ export async function destroyAction(req, res) {
   const action = "destroy";
   let result;
   let updateStats
-  
   try {
     result = await Promise.all([
       createHistory({
@@ -105,7 +102,7 @@ export async function destroyAction(req, res) {
       verifyDrug(req.body)
     ]);
 
-    updateStats = await Product.updateOne(
+    updateStats = await Product.update(
       {},
       { $pull: { serials: { $in: req.body } } },
       { multi: true }
@@ -114,18 +111,19 @@ export async function destroyAction(req, res) {
     createHistory({
       id,
       status: "rejected",
-      action,
+      action,   
       err
-    });
+    })
     return res.status(400).send({});
   }
-
-  createHistory({
+  
+  await createHistory({
     id,
     status: "done",
     action,
     data: updateStats
   });
+
   res.send({});
 }
 
@@ -146,7 +144,7 @@ export async function sampleAction(req, res) {
       verifyDrug(req.body)
     ]);
 
-    updateStats = await Product.updateOne(
+    updateStats = await Product.update(
       {},
       { $pull: { serials: { $in: req.body } } },
       { multi: true }
@@ -155,19 +153,22 @@ export async function sampleAction(req, res) {
     createHistory({
       id,
       status: "rejected",
-      action,
+      action,   
       err
-    });
+    })
     return res.status(400).send({});
   }
-
-  createHistory({
+  
+  await createHistory({
     id,
     status: "done",
     action,
     data: updateStats
   });
+
   res.send({});
 }
 
-export async function undoAction(req, res) {}
+export async function undoAction(req, res) {
+
+}

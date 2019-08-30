@@ -14,7 +14,6 @@ export async function createHistory(options) {
   return History.create(options)
 }
 export async function verifyDrug(data) {
-  console.log(data);
   return Axios({
     url: `${A_XX_URL}/check`,
     method: "POST",
@@ -22,7 +21,6 @@ export async function verifyDrug(data) {
   });
 }
 export async function getDrugs(data) {
-  console.log(data);
   return Axios({
     url: `${C_XX_URL}/products/verfiy`,
     method: "POST",

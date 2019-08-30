@@ -52,5 +52,5 @@ export async function verfiyDrug(req, res) {
       }
     }
   ]);
-  res.send({ products });
+  res.send(products);
 }
