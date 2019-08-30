@@ -1,7 +1,7 @@
 export const actions = [
   "post",
   "verify",
-  "dispence",
+  "dispense",
   "destroy",
   "sample",
   "undo"

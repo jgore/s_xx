@@ -1,6 +1,6 @@
 import Axios from "axios";
 import dotenv from "dotenv/config";
-import History from "../models/history";
+import Product from "../models/products";
 import uuid from "uuid/v1";
 import { createHistory, verifyDrug, getDrugs } from "../services/actions";
 
@@ -27,6 +27,12 @@ export async function verifyAction(req, res) {
       verifyDrug(req.body)
     ]);
   } catch (err) {
+    createHistory({
+      id,
+      status: "rejected",
+      action,
+      err
+    });
     return res.status(400).send({});
   }
 
@@ -34,17 +40,134 @@ export async function verifyAction(req, res) {
     id,
     status: "done",
     action,
-    data: {
-      referenced: id
-    }
+    data: result[1].data
   });
   res.send({ products: result[1].data });
 }
 
-export async function dispenseAction(req, res) {}
+export async function dispenseAction(req, res) {
+  const id = uuid();
+  const action = "dispense";
+  let result;
+  let updateStats
+  try {
+    result = await Promise.all([
+      createHistory({
+        id,
+        status: "waiting",
+        action,
+        data: req.body
+      }),
+      getDrugs(req.body),
+      verifyDrug(req.body)
+    ]);
 
-export async function destroyAction(req, res) {}
+    updateStats = await Product.update(
+      {},
+      { $pull: { serials: { $in: req.body } } },
+      { multi: true }
+    );
+  } catch (err) {
+    createHistory({
+      id,
+      status: "rejected",
+      action,   
+      err
+    })
+    return res.status(400).send({});
+  }
+  
+  await createHistory({
+    id,
+    status: "done",
+    action,
+    data: updateStats
+  });
+  console.log(updateStats)
+  res.send({});
+}
 
-export async function sampleAction(req, res) {}
+export async function destroyAction(req, res) {
+  const id = uuid();
+  const action = "destroy";
+  let result;
+  let updateStats
+  
+  try {
+    result = await Promise.all([
+      createHistory({
+        id,
+        status: "waiting",
+        action,
+        data: req.body
+      }),
+      getDrugs(req.body),
+      verifyDrug(req.body)
+    ]);
+
+    updateStats = await Product.updateOne(
+      {},
+      { $pull: { serials: { $in: req.body } } },
+      { multi: true }
+    );
+  } catch (err) {
+    createHistory({
+      id,
+      status: "rejected",
+      action,
+      err
+    });
+    return res.status(400).send({});
+  }
+
+  createHistory({
+    id,
+    status: "done",
+    action,
+    data: updateStats
+  });
+  res.send({});
+}
+
+export async function sampleAction(req, res) {
+  const id = uuid();
+  const action = "sample";
+  let result;
+  let updateStats
+  try {
+    result = await Promise.all([
+      createHistory({
+        id,
+        status: "waiting",
+        action,
+        data: req.body
+      }),
+      getDrugs(req.body),
+      verifyDrug(req.body)
+    ]);
+
+    updateStats = await Product.updateOne(
+      {},
+      { $pull: { serials: { $in: req.body } } },
+      { multi: true }
+    );
+  } catch (err) {
+    createHistory({
+      id,
+      status: "rejected",
+      action,
+      err
+    });
+    return res.status(400).send({});
+  }
+
+  createHistory({
+    id,
+    status: "done",
+    action,
+    data: updateStats
+  });
+  res.send({});
+}
 
 export async function undoAction(req, res) {}

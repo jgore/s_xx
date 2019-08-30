@@ -4,7 +4,7 @@
   "description": "Jest to wersja backendowa aplikacji mającej służyć do obliczania kosztów spedycji",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=develop nodemon --exec babel-node ./src/index.js",
+    "dev": "NODE_ENV=develop nodemon --exec babel-node ./src/index.js --ignore '**/query.json'",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --require @babel/register --recursive './test/**/*.spec.js'",
     "debug": "node --inspect-brk ./dist/index.js",
     "build": "babel src --out-dir ./dist --source-maps",
@@ -31,7 +31,7 @@
     "nodemailer-express-handlebars": "^3.1.0",
     "pug": "^2.0.4",
     "redis": "^2.8.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",

@@ -19,9 +19,6 @@ const historySchema = new mongoose.Schema(
       default: "verify",
       enum: actions
     },
-    data: {
-      type: Object
-    },
     operation_at: {
       type: Date,
       default: new Date()

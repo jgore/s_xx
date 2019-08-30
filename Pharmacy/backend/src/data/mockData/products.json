@@ -1,0 +1,37 @@
+[
+    {
+       "name":"Abilify",
+        "producer":"Otsuka Pharmaceutical Europe",
+        "dose":"15 mg",
+        "form":"tabletki",
+        "serials": []
+    },
+    {
+        "name":"Acai",
+        "producer":"Alter Medica",
+        "dose":"zawiera niestandaryzowany suchy wyciąg z jagód acai (10:1)",
+        "form":"kapsułki",
+        "serials": []
+    },
+    {
+        "name":"ApiCard",
+        "producer":"Farmina",
+        "dose":"30 ml zawiera: 300 mg wyciągu z głogu, 60 mg mleczka pszczelego, 50 mg wyciągu ze skórek winogron, 75 mg magnezu, 1,4 mg wit. B6, 2,4 mg niacyny, 0,9 mg kwasu pantotenowego, 0,21 mg wit. B2, 0,165 mg wit. B1, 7,5 µg biotyny",
+        "form":"syrop",
+        "serials": []
+    },
+    {
+        "name":"Apipulmol",
+        "producer":"Farmina",
+        "dose":"100 g zawiera: 2 g gwajakolosulfonianu potasu, 90 mg chlorku amonu, ziołomiód sosnowy",
+        "form":"syrop",
+        "serials": []
+    },
+    {
+        "name":"Apo-Napro",
+        "producer":"Apotex Polska",
+        "dose":" 250 mg",
+        "form":"tabletki",
+        "serials": []
+    }
+]
