@@ -23,4 +23,6 @@ const ProductSchema = new mongoose.Schema({
   }
 });
 
+ProductSchema.index({ serials: 1 }, { unique: true });
+
 export default mongoose.model("product", ProductSchema);

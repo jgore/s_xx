@@ -32,6 +32,11 @@ export async function verfiyDrug(req, res) {
                 $in: ["$$serial", "$serials"]
               }
             }
+          },
+          {
+            $project: {
+              serials: 0
+            }
           }
         ],
         as: "searialsLookup"

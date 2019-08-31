@@ -5,7 +5,7 @@ import actionRoutes from "./routes/actions";
 
 const PORT = process.env.PORT || 5000,
   MONGO_DB_URL =
-    process.env.MONGO_DB_URL || "mongodb://localhost:27017/pharmacy",
+    process.env.MONGO_DB_URL || "mongodb://localhost:27018/pharmacy",
   app = express();
 mongodbConnection(MONGO_DB_URL);
 

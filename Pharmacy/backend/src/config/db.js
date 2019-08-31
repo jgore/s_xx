@@ -34,9 +34,5 @@ export default async URI => {
   //   products[1].serials,
   //   products[2].serials
   // );
-  // Product.insertMany(products);
-  // fs.writeFileSync(
-  //   path.join(__dirname, "./query.json"),
-  //   JSON.stringify(serials, null, 3)
-  // );
+  // await Product.create(products);
 };
